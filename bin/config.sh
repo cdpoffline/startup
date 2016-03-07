@@ -10,6 +10,6 @@ logs_folder="$cwd/../web/logs"
 mkdir -p "$logs_folder"
 start_all_modules_sh_log="$logs_folder/startup.log"
 
-startup_command="\"$start_all_modules_sh\" 1>>\"$start_all_modules_sh_log\" 2>>\"$start_all_modules_sh_log\" # $rc_local_line_idetifier"
+startup_command="\"$start_all_modules_sh\" \"`whoami`\" 1>>\"$start_all_modules_sh_log\" 2>>\"$start_all_modules_sh_log\" # $rc_local_line_idetifier"
 
 echo "config loaded"

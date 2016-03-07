@@ -1,11 +1,15 @@
 #!/bin/bash
 
+cd "`dirname \"$0\"`"
+
 if [ "$1" != "locked" ]
 then
   echo "locking"
-  python start_locked.py "$0" &
+  python start_locked.py "$0" "locked" "$@" &
   exit 0
 fi
+
+echo "---------------------- `date` ----------------------"
 
 echo "running locked"
 
@@ -21,7 +25,7 @@ do
   then
     echo -n "starting $module_name ..."
     log_file="$logs_folder/$module_name.log"
-    if "$startup_file" 1>>"$log_file" 2>>"$log_file" 
+    if "$startup_file" "$@" 1>>"$log_file" 2>>"$log_file" 
     then
       echo "ok, output in \"$log_file\""
     else
@@ -32,4 +36,6 @@ do
   fi
 done
 
+chown -R "$1" logs/*
+exit 0
 

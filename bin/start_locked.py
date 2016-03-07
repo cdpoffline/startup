@@ -11,7 +11,9 @@ except socket.error:
     print("Locked and not starting.")
 else:
     print("locked")
-    subprocess.check_call(["/bin/bash", sys.argv[1], "locked"])
+    command = sys.argv[1:]
+    print("running {}".format(" ".join(command)))
+    subprocess.check_call(command)
     while 1:
         time.sleep(1000)
 
