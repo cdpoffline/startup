@@ -9,11 +9,13 @@ then
   exit 0
 fi
 
-echo "---------------------- `date` ----------------------"
+start_line="---------------------- `date` ----------------------"
 
+echo "$start_line"
 echo "running locked"
 
 cd "`dirname \"$0\"`"
+shift 
 source config.sh
 cd ../../../active-modules
 echo "modules directory: \"`pwd`\""
@@ -25,6 +27,7 @@ do
   then
     echo -n "starting $module_name ..."
     log_file="$logs_folder/$module_name.log"
+    echo "$start_line" >> $log_file
     if "$startup_file" "$@" 1>>"$log_file" 2>>"$log_file" 
     then
       echo "ok, output in \"$log_file\""
@@ -36,6 +39,7 @@ do
   fi
 done
 
-chown -R "$1" logs/*
+chown -R "$1" $logs_folder/*
+
 exit 0
 
